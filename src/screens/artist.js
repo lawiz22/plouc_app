@@ -108,15 +108,7 @@ class Artist extends Component {
     render() {
         return (
             <View style={[Styles.container, { padding: 0 }]}>
-                    <Image
-                        source={{ uri: `https://lespornstash.com${this.props.state.authSession.data.profile.image}` }}
-                        style={{
-                            marginTop: 10,
-                            height: 60,
-                            width: 60,
-                            borderRadius: 80
-                        }} />
-                    <Text
+                 <Text
                         style={{
                             color: COLOR.PANTOME,
                             margin: 8,
@@ -126,7 +118,7 @@ class Artist extends Component {
                     >
                         {`Artists de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
                             "Guest"} !`}                             
-                    </Text>
+                </Text>   
                 <View
                     style={{
                             flex: 1,

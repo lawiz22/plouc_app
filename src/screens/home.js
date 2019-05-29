@@ -47,14 +47,14 @@ class Home extends Component {
             
             <View style={[Styles.container, { padding: 0 }]}>
                     
-                <ImageBackground source={require('../images/middlebackground.jpg')} style={{width: '100%', height: '100%'}}>
-                {/* <View style={Styles.header}>
+                {/*<ImageBackground source={require('../images/middlebackground.jpg')} style={{width: '100%', height: '100%', opacity: 0.6}}>
+                 <View style={Styles.header}>
                     <DrawerHeader
                         headerTitle="Home"
                         icon="menu"
                         onPress={() => this.props.navigation.openDrawer()}
                     />
-                </View> */}
+                </View> </ImageBackground>*/}
                 <View
                     style={{
                         flex: 1,
@@ -83,7 +83,7 @@ class Home extends Component {
                             {`Artists ${this.props.state.authSession.data.first_name} `}
                         </ButPaper>
                         <Text>{' '}</Text>
-                        <ButPaper icon="music-note" mode="contained" raised theme={{ colors: {
+                        <ButPaper icon="library-music" mode="contained" raised theme={{ colors: {
                             ...DefaultTheme.colors,primary: COLOR.ALBUM } }} onPress={() => {
                         this.props.navigation.navigate("Album")
                             }}>
@@ -109,7 +109,7 @@ class Home extends Component {
                     
                 </View>
                 <CustomLoading text={"Signing you out..."} loading={this.props.state.clearingAuth} />
-            </ImageBackground>    
+                
             </View>
         );
     }

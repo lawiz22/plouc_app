@@ -86,14 +86,6 @@ class Post extends Component {
                             marginTop: 10
                                 }}
                 >
-                    <Image
-                        source={{ uri: `https://lespornstash.com${this.props.state.authSession.data.profile.image}` }}
-                        style={{
-                            marginTop: 10,
-                            height: 60,
-                            width: 60,
-                            borderRadius: 80
-                        }} />
                     <Text
                         style={{
                             color: COLOR.PANTOME,

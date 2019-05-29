@@ -62,7 +62,7 @@ class Login extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-             <ImageBackground source={require('../images/middlebackground.jpg')} style={{width: '100%', height: '100%'}}>
+              {/*<ImageBackground source={require('../images/middlebackground.jpg')} style={{width: '100%', height: '100%'}}></ImageBackground>*/}
               <StatusBar barStyle="light-content" />
                  <KeyboardAvoidingView behavior="padding" style={styles.container}>
                     <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
@@ -111,7 +111,7 @@ class Login extends Component {
                     </TouchableWithoutFeedback>
                     <CustomLoading loading={this.props.state.requestingAuth} />
                 </KeyboardAvoidingView>
-                </ImageBackground>
+                
             </SafeAreaView>
             
         );
