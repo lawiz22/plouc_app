@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Header, Left, Icon as NativeIcon, Button, Body, Title, Right } from 'native-base';
 import { View , Image} from "react-native";
+import { Badge } from "react-native-elements"
 import { COLOR } from "../config/styles";
 import { bindActionCreators } from "redux";
 import * as authActions from "../actions/authenticate";
@@ -18,7 +19,9 @@ class DrawerHeader extends Component {
                 </Left>
                 <Body>
                     <Title>{this.props.headerTitle}</Title>
+                    
                 </Body>
+                
                 <Right>
                 <Image
                         source={{ uri: `https://lespornstash.com${this.props.state.authSession.data.profile.image}` }}

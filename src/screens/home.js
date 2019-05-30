@@ -13,6 +13,7 @@ import Styles, { COLOR } from "../config/styles";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
+
 import { bindActionCreators } from "redux";
 import * as authActions from "../actions/authenticate";
 // import * as postActions from "../actions/posts";
@@ -76,7 +77,7 @@ class Home extends Component {
                             {`Posts ${this.props.state.authSession.data.first_name} `}
                         </ButPaper>
                         <Text>{' '}</Text>
-                        <ButPaper icon="music-note" mode="contained" raised theme={{ colors: {
+                        <ButPaper icon="people" mode="contained" raised theme={{ colors: {
                             ...DefaultTheme.colors,primary: COLOR.ARTIST } }}onPress={() => {
                         this.props.navigation.navigate("Artist")
                             }}>
@@ -88,6 +89,13 @@ class Home extends Component {
                         this.props.navigation.navigate("Album")
                             }}>
                             {`Albums ${this.props.state.authSession.data.first_name} `}
+                        </ButPaper>
+                        <Text>{' '}</Text>
+                        <ButPaper icon="music-note" mode="contained" raised theme={{ colors: {
+                            ...DefaultTheme.colors,primary: COLOR.SONG } }} onPress={() => {
+                        this.props.navigation.navigate("Song")
+                            }}>
+                            {`Songs ${this.props.state.authSession.data.first_name} `}
                         </ButPaper>
                         
                     
@@ -102,7 +110,7 @@ class Home extends Component {
                     }}
                 >   
                     <ButPaper icon="remove-circle-outline" mode="contained" raised theme={{ colors: {
-                            ...DefaultTheme.colors,primary: COLOR.DANGER } }} onPress={() => {
+                            ...DefaultTheme.colors,primary: COLOR.HOME } }} onPress={() => {
                         this.props.actions.logout(this.props.navigation.navigate)
                     }}> Logout
                     </ButPaper>

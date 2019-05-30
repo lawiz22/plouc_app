@@ -13,9 +13,11 @@ import Home from "../screens/home";
 import Post from "../screens/post";
 import Artist from "../screens/artist";
 import Album from "../screens/album";
+import Song from "../screens/song";
 import PostAll from "../screens/post_all";
 import ArtistAll from "../screens/artist_all";
 import AlbumAll from "../screens/album_all";
+import SongAll from "../screens/song_all";
 import Login from "../screens/login";
 import Splash from '../screens/splash'
 
@@ -189,15 +191,59 @@ const ShowAlbumAll = createStackNavigator(
     }
 );
 
+const ShowSong = createStackNavigator(
+    { // Screens
+        Song: {
+            screen: Song
+        }
+    }, { // Default options
+        
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                header:
+                    <DrawerHeader // Default header component
+                        headerColor= {COLOR.SONG}
+                        headerTitle={navigation.state.routeName}
+                        icon="menu"
+                        onPress={() => navigation.openDrawer()}
+                    />
+            };
+        }
+    }
+);
+
+const ShowSongAll = createStackNavigator(
+    { // Screens
+        SongAll: {
+            screen: SongAll
+        }
+    }, { // Default options
+        
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                header:
+                    <DrawerHeader // Default header component
+                        headerColor= {COLOR.SONG}
+                        headerTitle={navigation.state.routeName}
+                        icon="menu"
+                        onPress={() => navigation.openDrawer()}
+                    />
+            };
+        }
+    }
+);
+
 const AppDrawerNavigator = createDrawerNavigator(
     { // Screens
         Home: AuthenticatedInitialScreens,
         PostAll: ShowPostAll,
         ArtistAll: ShowArtistAll,
         AlbumAll: ShowAlbumAll,
+        SongAll: ShowSongAll,
         Post: ShowPost,
         Artist: ShowArtist,
         Album: ShowAlbum,
+        Song: ShowSong,
         TabNavigator: { screen: TabNavigator },
     }, { // Default options
         initialRouteName: 'Home',
