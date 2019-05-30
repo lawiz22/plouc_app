@@ -17,6 +17,7 @@ import { bindActionCreators } from "redux";
 import * as authActions from "../actions/authenticate";
 import * as songActions from "../actions/songs";
 import { connect } from "react-redux";
+import Home from "../screens/home";
 
 
 class Song extends Component {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, Button, Body, Title} from "react-native";
+
 import { Button as ButPaper, IconButton } from "react-native-paper"
 import { DefaultTheme, ListItem, Badge } from 'react-native-elements'
 
@@ -63,6 +64,14 @@ class SongAll extends Component {
                     key={song.id}
                     leftAvatar={{ source: { uri: `https://lespornstash.com${song.song_image}` } }}
                     title={song.song_title}
+                    onPress={() => {
+                                /* 1. Navigate to the Details route with params */
+                                this.props.navigation.navigate('SongDetail', {
+                                itemId: song.song_title,
+                                imageUrl: `https://lespornstash.com${song.song_image}`,
+                                otherParam: 'anything you want here',
+                                });
+                            }}
                     // subtitle={song.user.album}
                 />
             );
@@ -111,7 +120,8 @@ class SongAll extends Component {
                             color: COLOR.PANTOME,
                             margin: 8,
                             fontSize: 15,
-                           // marginTop: 8
+                            
+                            marginTop: 12
                         }}
                     >
                         {`Songs!`}

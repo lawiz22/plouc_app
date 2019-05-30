@@ -14,6 +14,7 @@ import Post from "../screens/post";
 import Artist from "../screens/artist";
 import Album from "../screens/album";
 import Song from "../screens/song";
+import SongDetail from "../screens/song_detail";
 import PostAll from "../screens/post_all";
 import ArtistAll from "../screens/artist_all";
 import AlbumAll from "../screens/album_all";
@@ -216,9 +217,12 @@ const ShowSongAll = createStackNavigator(
     { // Screens
         SongAll: {
             screen: SongAll
+        },
+        SongDetail: {
+            screen: SongDetail
         }
     }, { // Default options
-        
+        initialRouteName: 'SongAll',
         defaultNavigationOptions: ({ navigation }) => {
             return {
                 header:
@@ -232,6 +236,7 @@ const ShowSongAll = createStackNavigator(
         }
     }
 );
+
 
 const AppDrawerNavigator = createDrawerNavigator(
     { // Screens

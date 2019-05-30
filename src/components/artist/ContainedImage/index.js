@@ -12,12 +12,13 @@ const StyledImage = glamorous.image((props, theme) => ({
   left: 0,
   bottom: 0,
   right: 0
+  
 }));
 
 const ContainedImage = props => {
   return (
     <CardImageContainer>
-      <StyledImage resizeMode="contain" {...props} />
+      <StyledImage resizeMode="contain" {...props} borderRadius="34"/>
     </CardImageContainer>
   );
 };

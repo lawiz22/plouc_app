@@ -9,6 +9,7 @@ import Home from "../screens/home";
 import PostAll from "../screens/post_all";
 import ArtistAll from "../screens/artist_all";
 import AlbumAll from "../screens/album_all";
+import SongAll from "../screens/song_all";
 
 
 
@@ -28,7 +29,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarLabel:'Artists',  
                 tabBarIcon: ({ tintColor }) => (  
                     <View>  
-                        <Icon style={[{color: tintColor}]} size={25} name={'music-note'}/>  
+                        <Icon style={[{color: tintColor}]} size={25} name={'people'}/>  
                     </View>),  
                 activeColor: '#f0edf6',  
                 inactiveColor: '#1c3b72',  
@@ -45,6 +46,18 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 activeColor: '#141414',  
                 inactiveColor: '#dd7b35',  
                 barStyle: { backgroundColor: '#e09523' },  
+            }  
+        },
+        Songs: { screen: SongAll,  
+            navigationOptions:{  
+                tabBarLabel:'Songs',  
+                tabBarIcon: ({ tintColor }) => (  
+                    <View>  
+                        <Icon style={[{color: tintColor}]} size={25} name={'music-note'}/>  
+                    </View>),  
+                activeColor: '#141414',  
+                inactiveColor: '#c48b8b',  
+                barStyle: { backgroundColor: '#e81414' },  
             }  
         },  
         
