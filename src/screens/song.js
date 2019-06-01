@@ -15,7 +15,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 import { bindActionCreators } from "redux";
 import * as authActions from "../actions/authenticate";
-import * as songActions from "../actions/songs";
+import * as usersongActions from "../actions/songs_user";
 import { connect } from "react-redux";
 import Home from "../screens/home";
 
@@ -36,8 +36,8 @@ class Song extends Component {
          // console.log(this.props.state.authSession.data.id);
          // this.props.state.isAuth
          this.props.songs.get_user_song_count(this.props.state.authSession.data.id)
-         this.props.songs.reset_song_list(this.page.limit,this.page.offset)
-         this.props.songs.get_song_list()
+         this.props.songs.reset_usersong_list(this.page.limit,this.page.offset)
+         this.props.songs.get_usersong_list()
          
          //   : 
         setTimeout(() => {
@@ -47,7 +47,7 @@ class Song extends Component {
 
     handlePlusdeSong = () => {
         this.page.limit  = this.page.limit + this.page.increase
-        this.props.songs.reset_song_list(this.page.limit,this.page.offset)
+        this.props.songs.reset_usersong_list(this.page.limit,this.page.offset)
         
     }
 
@@ -55,12 +55,12 @@ class Song extends Component {
         
         this.page.limit = 7
         this.page.offset = 0
-        this.props.songs.reset_song_list(this.page.limit,this.page.offset)
+        this.props.songs.reset_usersong_list(this.page.limit,this.page.offset)
         
     }
 
     renderSongList(songList) {
-        return songList.slice(0,this.props.usersongs_status.songLimit)
+        return songList.slice(0,this.props.usersongs_status.usersongLimit)
             .map(song =>
                 <ListItem
                     key={song.id}
@@ -146,8 +146,8 @@ class Song extends Component {
                         }}> mores songs
                         </ButPaper>
                     </View>
-                    <Badge value={this.props.usersongs_status.songLimit} status="success" containerStyle={{ position: 'absolute', top: +110, right: -4 }}/>
-                    <Badge value={this.props.usersongs_status.songTotal} status="error" containerStyle={{ position: 'absolute', top: -8, left: -4 }}/>
+                    <Badge value={this.props.usersongs_status.usersongLimit} status="success" containerStyle={{ position: 'absolute', top: +110, right: -4 }}/>
+                    <Badge value={this.props.usersongs_status.usersongTotal} status="error" containerStyle={{ position: 'absolute', top: -8, left: -4 }}/>
                     <ScrollView style={[Styles.container, { padding: 0 }]}>
                         {this.renderSongSection()}
                     </ScrollView>
@@ -162,12 +162,12 @@ class Song extends Component {
 
 export default connect(
     state => ({ state: state.authenticate,
-                usersongs_status : state.list_song,
-                usersongs : state.list_song.songList
+                usersongs_status : state.list_user_song,
+                usersongs : state.list_user_song.usersongList
              }),
     dispatch => ({
                 actions: bindActionCreators(authActions, dispatch),
-                songs: bindActionCreators(songActions, dispatch)
+                songs: bindActionCreators(usersongActions, dispatch)
                 })
 )(Song);
     

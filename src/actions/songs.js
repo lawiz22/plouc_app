@@ -69,7 +69,7 @@ export function reset_song_list(limit, offset) { // Fake logout request
                 // await AsyncStorage.removeItem(DATA_SESSION); // Remove the session data and unauthenticate the user
                 
                 dispatch(reset_songSuccess(limit, offset)) // Dispatch a logout success action
-            }, 1500)
+            }, 2500)
         } catch (err) { // When something goes wrong
             dispatch(reset_songFailed("Something went wrong"))
         }
@@ -136,7 +136,7 @@ export function get_user_song_count(user) { // Fake authentication function
     };
 }
 
-export function get_song_count(user) { // Fake authentication function
+export function get_song_count() { // Fake authentication function
     return async dispatch => {
         dispatch(count_songRequest()); // dispatch a login request to update the state
         //console.log(id) 
@@ -149,7 +149,7 @@ export function get_song_count(user) { // Fake authentication function
                 // console.log(user)
                 const songList = Object.values(response['data'])
                 //    .filter(song => song.user.id === user);    
-                console.log(songList)
+                // console.log(songList)
                                 
                 dispatch(count_songSuccess(songList))
                 // console.log(response.data.length)

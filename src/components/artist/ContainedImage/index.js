@@ -18,7 +18,7 @@ const StyledImage = glamorous.image((props, theme) => ({
 const ContainedImage = props => {
   return (
     <CardImageContainer>
-      <StyledImage resizeMode="contain" {...props} borderRadius="34"/>
+      <StyledImage resizeMode="contain" {...props} />
     </CardImageContainer>
   );
 };

@@ -35,30 +35,34 @@ class SongAll extends Component {
         // const song = this.props.songs.get_user_song();
          // console.log(this.props.state.authSession.data.id);
          // this.props.state.isAuth
-         this.props.songs.get_song_count()
-         this.props.songs.get_song_list(this.page.limit,this.page.offset)
-         
+         this.props.songs.get_song_list()
+         this.props.songs.reset_song_list(this.page.limit,this.page.offset)
          //   : 
-        setTimeout(() => {
-            
-        }, 2000);
     }
+    componentWillMount() {
+        
+         
+    }
+
+
 
     handlePlusdeSong = () => {
         this.page.limit  = this.page.limit + this.page.increase
-        this.props.songs.get_song_list(this.page.limit,this.page.offset)
+        this.props.songs.reset_song_list(this.page.limit,this.page.offset)
     }
-
+    
     resetSonglist = () => {
         
         this.page.limit = 7
         this.page.offset = 0
         this.props.songs.reset_song_list(this.page.limit,this.page.offset)
-        this.props.songs.get_song_list(this.page.limit,this.page.offset)
     }
 
+
+
     renderSongList(songList) {
-        return songList
+        
+        return songList.slice(0,this.props.usersongs_status.songLimit)
             .map(song =>
                 <ListItem
                     key={song.id}
@@ -69,6 +73,7 @@ class SongAll extends Component {
                                 this.props.navigation.navigate('SongDetail', {
                                 itemId: song.song_title,
                                 imageUrl: `https://lespornstash.com${song.song_image}`,
+                                trackUrl: `https://lespornstash.com${song.audio_file}`,
                                 otherParam: 'anything you want here',
                                 });
                             }}
@@ -83,7 +88,7 @@ class SongAll extends Component {
             // const songs = JSON.stringify( this.props.usersongs );
             const songList = Object.values(this.props.usersongs)
                
-            console.log(songList)
+            // console.log(songList)
             if (songList.length !== 0) return (
                 <View>
                     {this.renderSongList(songList)}

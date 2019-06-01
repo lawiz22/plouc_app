@@ -24,6 +24,7 @@ export default function list_song(state = initialState_A, action = {}) {
         ...state,
         isSongSuccess: true,
         songList: action.data.response.data,
+        songTotal: action.data.response.data.length,
         requestingSong: false,
         songLimit: action.data.limit,
         songOffset: action.data.offset,
