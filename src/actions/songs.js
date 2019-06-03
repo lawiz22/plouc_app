@@ -69,7 +69,7 @@ export function reset_song_list(limit, offset) { // Fake logout request
                 // await AsyncStorage.removeItem(DATA_SESSION); // Remove the session data and unauthenticate the user
                 
                 dispatch(reset_songSuccess(limit, offset)) // Dispatch a logout success action
-            }, 2500)
+            }, 1800)
         } catch (err) { // When something goes wrong
             dispatch(reset_songFailed("Something went wrong"))
         }

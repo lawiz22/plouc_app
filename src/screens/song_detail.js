@@ -7,11 +7,12 @@ import {
 
 import { View, Text, Button, TouchableOpacity, StyleSheet, TouchableHighlight } from 'react-native';
 import { ActivityIndicator } from 'react-native';
-import { IconButton as ButPaper} from 'react-native-paper';
+import { DefaultTheme, IconButton as ButPaper, Appbar} from 'react-native-paper';
 import { Image } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
-import { COLOR } from '../config/styles'
+import { NavigationActions } from 'react-navigation';
+import Styles, { COLOR } from '../config/styles'
 
 import Header from '../components/player/Header';
 import AlbumArt from '../components/player/AlbumArt';
@@ -64,6 +65,7 @@ class SongDetail extends React.Component  {
     componentWillMount() {
       const { navigation } = this.props;
       filename = navigation.getParam('trackUrl', "https://lespornstash.com/media/Bombe_au_clock.mp3");
+      comeFrom = navigation.getParam('otherParam', "all");
       this.player = null;
       this.recorder = null;
       this.lastSeek = 0;
@@ -287,20 +289,32 @@ class SongDetail extends React.Component  {
       // navigationOptions = ({ navigation }) => { return { itemId: navigation.getParam("itemId", "Default title"), }; };
       const itemId = navigation.getParam('itemId', 'DA MARDE!!');
       const itemArtist = navigation.getParam('itemArtist', 'Lawiz');
+      const comeFrom = navigation.getParam('otherParam', "all");
       const trackUrl = navigation.getParam('trackUrl', "https://lespornstash.com/media/Bombe_au_clock.mp3");
       const filename = navigation.getParam('trackUrl', "https://lespornstash.com/media/Bombe_au_clock.mp3");
       const imageUrl = navigation.getParam('imageUrl', 'https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_960_720.png');
       console.log(itemId)
+      let user = ("SongAll");
+      const backAction = NavigationActions.back();
+      
+      
       return (
+        <View style={[Styles.container, { padding: 0 }]}>
+        <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.SONG } }}>
+                        <Appbar.BackAction
+                        
+                        onPress={() => this.props.navigation.dispatch(backAction)}
+                        />
+                        <Appbar.Content
+                        title="Songs ALL"
+                        subtitle="Songs all for one one for all songs"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+            </Appbar.Header>
         <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center',  backgroundColor: 'rgb(4,4,4)' }}>
-          <ButPaper
-              disabled={!this.state.paused}
-              icon = "arrow-back"
-              color={COLOR.SONG }
-              size={35}
-              onPress={() => this.props.navigation.navigate("SongAll")}
-              style={{ position: 'absolute', top: +2, left: +2 }}
-            />
+          
            <AlbumArt url={ imageUrl }  onPress={() => this._playPause(trackUrl)} />
            <TrackDetails title={ itemId } artist={ itemArtist } />
            <SeekBar
@@ -317,6 +331,7 @@ class SongDetail extends React.Component  {
                    />
                   
            
+        </View>
         </View>
       );
     }

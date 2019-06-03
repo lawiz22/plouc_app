@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, Button, ImageBackground} from "react-native";
-import { DefaultTheme, Button as ButPaper, Chip, Title, Headline, Avatar } from 'react-native-paper';
+import { DefaultTheme, Button as ButPaper, Appbar, Title, Headline, Avatar } from 'react-native-paper';
 
 
 
 import CustomButton from "../components/button";
-import CustomLoading from "../components/loading";
+import CustomLoading from "../components/loading_2";
 import DrawerHeader from '../components/header';
 import BottomComponent from '../components/bottom';
 
@@ -47,7 +47,19 @@ class Home extends Component {
         return (
             
             <View style={[Styles.container, { padding: 0 }]}>
-                    
+            <Appbar.Header theme={{ colors: {
+                            ...DefaultTheme.colors,primary: COLOR.HOME } }}>
+                <Appbar.Action
+                  icon="menu"
+                  onPress={() => this.props.navigation.openDrawer()}
+                />
+                <Appbar.Content
+                title="Home"
+                subtitle="Home is where the heart is..."
+                />
+                <Appbar.Action icon="search" />
+                <Appbar.Action icon="more-vert"  />
+            </Appbar.Header>        
                 {/*<ImageBackground source={require('../images/middlebackground.jpg')} style={{width: '100%', height: '100%', opacity: 0.6}}>
                  <View style={Styles.header}>
                     <DrawerHeader

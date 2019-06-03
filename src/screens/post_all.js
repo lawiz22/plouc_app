@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, Button} from "react-native";
 import { ListItem } from 'react-native-elements'
+import { DefaultTheme, Button as ButPaper, Appbar, Title, Headline, Avatar } from 'react-native-paper';
 
 
 import CustomButton from "../components/button";
@@ -74,20 +75,36 @@ class PostAll extends Component {
 
     render() {
         return (
+            <View style={[Styles.container, { padding: 0 }]}>
+            <Appbar.Header theme={{ colors: {
+                            ...DefaultTheme.colors,primary: COLOR.POST } }}>
+                    <Appbar.BackAction
+                    
+                    onPress={() => this.props.navigation.navigate("Home")}
+                    />
+                    <Appbar.Content
+                    title="Posts ALL"
+                    subtitle="Wait a minute Mr. postman..."
+                    />
+                    <Appbar.Action icon="search" />
+                    <Appbar.Action icon="more-vert"  />
+            </Appbar.Header>
             <ScrollView style={[Styles.container, { padding: 0 }]}>
                 <View
                     style={{
                         flex: 1,
                         flexDirection: 'column',
-                        height: 50,
+                        height: 4,
                         justifyContent: "center",
                         alignItems: "stretch",
-                        marginTop: 10
+                        // marginTop: 10
                     }}
                 >
+                
                 </View>
                 {this.renderPostSection()}
             </ScrollView>
+            </View>
         );
     }
 }

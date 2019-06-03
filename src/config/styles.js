@@ -19,7 +19,7 @@ const Styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR.LIGHT_GRAY,
-    padding: 16
+    // padding: 16
   },
   header: {
     position: "absolute",

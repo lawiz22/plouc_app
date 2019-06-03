@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, FlatList} from "react-native";
 import { Card, ListItem, Button } from 'react-native-elements'
+import { DefaultTheme, Appbar, Title, Headline, Avatar } from 'react-native-paper';
 
 
 
@@ -108,17 +109,21 @@ class Artist extends Component {
     render() {
         return (
             <View style={[Styles.container, { padding: 0 }]}>
-                 <Text
-                        style={{
-                            color: COLOR.PANTOME,
-                            margin: 8,
-                            fontSize: 15,
-                            marginTop: 8
-                        }}
-                    >
-                        {`Artists de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
-                            "Guest"} !`}                             
-                </Text>   
+                <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.ARTIST } }}>
+                        <Appbar.BackAction
+                        
+                        onPress={() => this.props.navigation.navigate("Home")}
+                        />
+                        <Appbar.Content
+                        title={`Artists de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
+                            "Guest"} !`}
+                        subtitle="Ont est tous des artist quand ont est hop!!"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+                </Appbar.Header>
+                 
                 <View
                     style={{
                             flex: 1,
@@ -126,7 +131,7 @@ class Artist extends Component {
                             // height: 270,
                             justifyContent: "flex-start",
                             alignItems: "stretch",
-                            marginTop: 10,
+                            marginTop: 4,
                             marginLeft: 5
                                 }}
                 >

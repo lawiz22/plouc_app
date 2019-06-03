@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Modal, ActivityIndicator } from "react-native";
 import { ActivityIndicator as ActPaper, Colors } from 'react-native-paper';
+import { COLOR } from "../config/styles";
 
 import Proptypes from "prop-types";
 
@@ -49,7 +50,7 @@ const CustomLoading = props => {
                             }}
                         >
                             
-                            <ActPaper animating={true} color={Colors.red800} />
+                            <ActPaper animating={true} color={props.color || COLOR.SONG} />
                             <Text style={{ marginTop: 8 }}>{props.text || "Authenticating..."}</Text>
                         </View>
                     </View>
@@ -63,7 +64,8 @@ const CustomLoading = props => {
 
 CustomLoading.propTypes = {
     text: Proptypes.string,
-    loading: Proptypes.bool
+    loading: Proptypes.bool,
+    color: Proptypes.string,
 };
 
 export default CustomLoading;

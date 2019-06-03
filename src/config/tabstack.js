@@ -15,6 +15,15 @@ import SongAll from "../screens/song_all";
 
 const TabNavigator = createMaterialBottomTabNavigator(  
     {  
+        Home: { screen: Home,  
+            navigationOptions:{  
+                tabBarLabel:'Home',  
+                tabBarIcon: ({ tintColor }) => (  
+                    <View>  
+                        <Icon style={[{color: tintColor}]} size={25} name={'home'}/>  
+                    </View>),  
+            }  
+        },
         Posts: { screen: PostAll,  
             navigationOptions:{  
                 tabBarLabel:'Posts',  
@@ -22,6 +31,9 @@ const TabNavigator = createMaterialBottomTabNavigator(
                     <View>  
                         <Icon style={[{color: tintColor}]} size={25} name={'content-copy'}/>  
                     </View>),  
+                activeColor: '#f0edf6',  
+                inactiveColor: '#587017',  
+                barStyle: { backgroundColor: COLOR.POST },   
             }  
         },  
         Artists: { screen: ArtistAll,  
@@ -63,10 +75,10 @@ const TabNavigator = createMaterialBottomTabNavigator(
         
     },  
     {  
-      initialRouteName: "Posts",  
+      initialRouteName: "Home",  
       activeColor: '#f0edf6',  
       inactiveColor: '#587017',  
-      barStyle: { backgroundColor: COLOR.POST },  
+      barStyle: { backgroundColor: COLOR.HOME },  
     },  
 );
 

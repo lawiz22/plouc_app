@@ -1,23 +1,25 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, Button, Body, Title} from "react-native";
 
-import { Button as ButPaper, IconButton } from "react-native-paper"
-import { DefaultTheme, ListItem, Badge } from 'react-native-elements'
+import { DefaultTheme, Button as ButPaper, IconButton, Appbar } from "react-native-paper"
+
+import { ListItem, Badge, Icon } from 'react-native-elements'
 
 
 import CustomButton from "../components/button";
-import CustomLoading from "../components/loading";
+import CustomLoading from "../components/loading_2";
 import DrawerHeader from '../components/header'
 
 import PropTypes from 'prop-types';
 import Styles, { COLOR } from "../config/styles";
 
-import Icon from "react-native-vector-icons/FontAwesome";
+// import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { bindActionCreators } from "redux";
 import * as authActions from "../actions/authenticate";
 import * as songActions from "../actions/songs";
 import { connect } from "react-redux";
+
 
 
 class SongAll extends Component {
@@ -29,15 +31,27 @@ class SongAll extends Component {
     //         backgroundColor: COLOR.PANTOME
     //     }
     // }); // navigationOptions
-    
+    constructor() {
+        super();
+        this.state = {
+          random: false,
+         
+        };
+        // this.p = new Player("https://lespornstash.com/media/Bombe_au_clock.mp3");
+        
+    }
     componentDidMount() {
         // console.log(this.props.state.authSession.data.id)
         // const song = this.props.songs.get_user_song();
          // console.log(this.props.state.authSession.data.id);
          // this.props.state.isAuth
+         
+         // this.props.songs.reset_song_list(this.page.limit,this.page.offset)
+         //   : 
+         
          this.props.songs.get_song_list()
          this.props.songs.reset_song_list(this.page.limit,this.page.offset)
-         //   : 
+
     }
     componentWillMount() {
         
@@ -58,10 +72,21 @@ class SongAll extends Component {
         this.props.songs.reset_song_list(this.page.limit,this.page.offset)
     }
 
-
+    shuffle = (arr) => {
+        for (let i = arr.length - 1; i > 0; i--) {
+            let rnd = Math.floor(Math.random() * i);
+    
+            let temp = arr[i];
+            arr[i] = arr[rnd];
+            arr[rnd] = temp;
+        }
+        return arr;
+    }
 
     renderSongList(songList) {
-        
+        if (this.state.random)
+            songList = this.shuffle(songList)
+                    
         return songList.slice(0,this.props.usersongs_status.songLimit)
             .map(song =>
                 <ListItem
@@ -102,14 +127,29 @@ class SongAll extends Component {
     page = {
             limit: 7,
             offset: 0,
-            increase:7
+            increase:7,
+            
             
           };
     render() {
         
+        
         return (
             
             <View style={[Styles.container, { padding: 0 }]}>
+            <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.SONG } }}>
+                        <Appbar.BackAction
+                        
+                        onPress={() => this.props.navigation.navigate("Home")}
+                        />
+                        <Appbar.Content
+                        title="Songs ALL"
+                        subtitle="Songs all for one one for all songs"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+            </Appbar.Header>
                 <View
                     style={{
                             flex: 1,
@@ -133,12 +173,28 @@ class SongAll extends Component {
                                                          
                     </Text>
 
-                    <IconButton
-                        icon="sync"
+                    <Icon
+                        raised
+                        name="sync"
+                        type = "material"
                         color={COLOR.SONG}
-                       
+                        underlayColor="#a02e2e"
+                        // containerStyle={{ position: 'absolute', top: 28, left: 55  }}
                         size={30}
                         onPress={() =>{ this.resetSonglist()}}
+                    />
+                    <Icon
+                        raised
+                        reverse = { this.state.random }
+                        name="dice-multiple"
+                        type = "material-community"
+                        color={COLOR.SONG}
+                        underlayColor="#a02e2e"
+                        containerStyle={{ position: 'absolute', top: 39, left: 65  }}
+                        size={30}
+                        onPress={() =>{ this.setState({
+                                        random: !this.state.random
+                                    }) ,console.log(this.state.random) }}
                     />
                     
                     
@@ -162,7 +218,7 @@ class SongAll extends Component {
                     <ScrollView style={[Styles.container, { padding: 0 }]}>
                         {this.renderSongSection()}
                     </ScrollView>
-                    
+                    <CustomLoading loading={this.props.usersongs_status.requestingSong} text ="Loading Songs" />
                 </View>
                
             </View>

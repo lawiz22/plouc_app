@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, FlatList} from "react-native";
 import { Card, ListItem, Button } from 'react-native-elements'
+import { DefaultTheme, Button as ButPaper, Appbar, Title, Headline, Avatar } from 'react-native-paper';
 
 
 
@@ -108,28 +109,43 @@ class AlbumAll extends Component {
 
     render() {
         return (
-            <ScrollView style={[Styles.container, { padding: 0 }]}>
-                                    
-                
-                        <View
-                            style={{
-                                    flex: 2,
-                                    flexDirection: 'row',
-                                    // height: 270,
-                                    //justifyContent: "flex-start",
-                                    //alignItems: "stretch",
-                                    marginTop: 10,
-                                    marginLeft: 5
-                                        }}
-                        >
-                            <View style={[Styles.container, { padding: 0 }]}>
-                                {this.renderAlbumSection()}
-                            </View>
-                        </View>
+            <View style={[Styles.container, { padding: 0 }]}>
+                <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.ALBUM } }}>
+                        <Appbar.BackAction
                         
-                
-               
-            </ScrollView>
+                        onPress={() => this.props.navigation.navigate("Home")}
+                        />
+                        <Appbar.Content
+                        title="Albums ALL"
+                        subtitle="Album it all ! Album it al!! Album it now!!"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+                </Appbar.Header>
+                    <ScrollView style={[Styles.container, { padding: 0 }]}>
+                                            
+                        
+                                <View
+                                    style={{
+                                            flex: 2,
+                                            flexDirection: 'row',
+                                            // height: 4,
+                                            //justifyContent: "flex-start",
+                                            //alignItems: "stretch",
+                                            // marginTop: 10,
+                                            // marginLeft: 5
+                                                }}
+                                >
+                                    <View style={[Styles.container, { padding: 0 }]}>
+                                        {this.renderAlbumSection()}
+                                    </View>
+                                </View>
+                                
+                        
+                    
+                    </ScrollView>
+            </View>
         );
     }
 }

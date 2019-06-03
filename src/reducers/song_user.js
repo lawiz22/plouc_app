@@ -28,11 +28,17 @@ export default function list_user_song(state = initialState_A, action = {}) {
         usersongLimit: action.data.limit,
         usersongOffset: action.data.offset,
       };
+      case types.RESET_USER_SONGS_REQUEST: // When a Login success action has been dispatched
+      return { // See more on actions/authenticate.js on line 19 - 38
+        ...state,
+        // requestingUserSong: true,
+      };
       case types.RESET_USER_SONGS_SUCCESS: // When a Login success action has been dispatched
       return { // See more on actions/authenticate.js on line 19 - 38
         ...state,
         usersongLimit: action.data.limit,
         usersongOffset: action.data.offset,
+        requestingUserSong: false,
       };
     case types.COUNT_USER_SONGS_TOTAL_SUCCESS: // When a Login success action has been dispatched
       return { // See more on actions/authenticate.js on line 19 - 38

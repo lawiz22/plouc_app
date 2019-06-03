@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, Button, Body, Title} from "react-native";
-import { Button as ButPaper, IconButton } from "react-native-paper"
-import { DefaultTheme, ListItem, Badge } from 'react-native-elements'
+
+import { DefaultTheme, Button as ButPaper, IconButton, Appbar } from "react-native-paper"
+import { ListItem, Badge, Icon } from 'react-native-elements'
 
 
 import CustomButton from "../components/button";
-import CustomLoading from "../components/loading";
+import CustomLoading from "../components/loading_2";
 import DrawerHeader from '../components/header'
 
 import PropTypes from 'prop-types';
 import Styles, { COLOR } from "../config/styles";
 
-import Icon from "react-native-vector-icons/FontAwesome";
+// import Icon from "react-native-vector-icons/FontAwesome";
 
 import { bindActionCreators } from "redux";
 import * as authActions from "../actions/authenticate";
@@ -29,21 +30,32 @@ class Song extends Component {
     //         backgroundColor: COLOR.PANTOME
     //     }
     // }); // navigationOptions
-    
+    constructor() {
+        super();
+        this.state = {
+          random: false,
+         
+        };
+    }
     componentDidMount() {
         // console.log(this.props.state.authSession.data.id)
         // const song = this.props.songs.get_user_song();
          // console.log(this.props.state.authSession.data.id);
          // this.props.state.isAuth
          this.props.songs.get_user_song_count(this.props.state.authSession.data.id)
-         this.props.songs.reset_usersong_list(this.page.limit,this.page.offset)
          this.props.songs.get_usersong_list()
          
          //   : 
-        setTimeout(() => {
-            
-        }, 2000);
+        // setTimeout(() => {
+            this.props.songs.reset_usersong_list(this.page.limit,this.page.offset)
+        // }, 1000);
     }
+
+    componentWillMount() {
+        
+         
+    }
+
 
     handlePlusdeSong = () => {
         this.page.limit  = this.page.limit + this.page.increase
@@ -59,7 +71,22 @@ class Song extends Component {
         
     }
 
+    shuffle = (arr) => {
+        for (let i = arr.length - 1; i > 0; i--) {
+            let rnd = Math.floor(Math.random() * i);
+    
+            let temp = arr[i];
+            arr[i] = arr[rnd];
+            arr[rnd] = temp;
+        }
+        return arr;
+    }
+
+
     renderSongList(songList) {
+        if (this.state.random)
+            songList = this.shuffle(songList)
+
         return songList.slice(0,this.props.usersongs_status.usersongLimit)
             .map(song =>
                 <ListItem
@@ -67,6 +94,15 @@ class Song extends Component {
                     leftAvatar={{ source: { uri: `https://lespornstash.com${song.song_image}` } }}
                     title={song.song_title}
                     // subtitle={song.user.album}
+                    onPress={() => {
+                                /* 1. Navigate to the Details route with params */
+                                this.props.navigation.navigate('SongDetailUser', {
+                                itemId: song.song_title,
+                                imageUrl: `https://lespornstash.com${song.song_image}`,
+                                trackUrl: `https://lespornstash.com${song.audio_file}`,
+                                otherParam: 'User',
+                                });
+                            }}
                 />
             );
     }
@@ -99,6 +135,20 @@ class Song extends Component {
         return (
             
             <View style={[Styles.container, { padding: 0 }]}>
+            <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.SONG } }}>
+                        <Appbar.BackAction
+                        
+                        onPress={() => this.props.navigation.navigate("Home")}
+                        />
+                        <Appbar.Content
+                        title={`Songs de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
+                            "Guest"} !`}
+                        subtitle="Songs all for one one for all songs"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+            </Appbar.Header>
                 <View
                     style={{
                             flex: 1,
@@ -109,25 +159,29 @@ class Song extends Component {
                             marginTop: 10
                                 }}
                 >
-                    <Text
-                        style={{
-                            color: COLOR.PANTOME,
-                            margin: 8,
-                            fontSize: 15,
-                           // marginTop: 8
-                        }}
-                    >
-                        {`Songs de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
-                            "Guest"} !`}
-                                                         
-                    </Text>
 
-                    <IconButton
-                        icon="sync"
+                    <Icon
+                        raised
+                        name="sync"
+                        type = "material"
                         color={COLOR.SONG}
-                       
+                        underlayColor="#a02e2e"
+                        // containerStyle={{ position: 'absolute', top: 28, left: 55  }}
                         size={30}
                         onPress={() =>{ this.resetSonglist()}}
+                    />
+                    <Icon
+                        raised
+                        reverse = { this.state.random }
+                        name="dice-multiple"
+                        type = "material-community"
+                        color={COLOR.SONG}
+                        underlayColor="#a02e2e"
+                        containerStyle={{ position: 'absolute', top: 0, left: 65  }}
+                        size={30}
+                        onPress={() =>{ this.setState({
+                                        random: !this.state.random
+                                    }) ,console.log(this.state.random) }}
                     />
                     
                     
@@ -151,7 +205,7 @@ class Song extends Component {
                     <ScrollView style={[Styles.container, { padding: 0 }]}>
                         {this.renderSongSection()}
                     </ScrollView>
-                    
+                    <CustomLoading loading={this.props.usersongs_status.requestingUserSong} text ="Loading Songs" />
                 </View>
                
             </View>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image, Button, FlatList} from "react-native";
+import { DefaultTheme, Button as ButPaper, Appbar, Title, Headline, Avatar } from 'react-native-paper';
 import { ListItem } from 'react-native-elements'
 
 
@@ -101,20 +102,35 @@ class ArtistAll extends Component {
 
     render() {
         return (
-            <ScrollView style={[Styles.container, { padding: 0 }]}>
-                <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        height: 50,
-                        justifyContent: "center",
-                        alignItems: "stretch",
-                        marginTop: 10
-                    }}
-                >
-                </View>
-                {this.renderArtistSection()}
-            </ScrollView>
+            <View style={[Styles.container, { padding: 0 }]}>
+                <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.ARTIST } }}>
+                        <Appbar.BackAction
+                        
+                        onPress={() => this.props.navigation.navigate("Home")}
+                        />
+                        <Appbar.Content
+                        title="Artist ALL"
+                        subtitle="Ont est tous des artist quand ont est hop!!"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+                </Appbar.Header>
+                    <ScrollView style={[Styles.container, { padding: 0 }]}>
+                        <View
+                            style={{
+                                flex: 1,
+                                flexDirection: 'column',
+                                height: 4,
+                                justifyContent: "center",
+                                alignItems: "stretch",
+                                // marginTop: 10
+                            }}
+                        >
+                        </View>
+                        {this.renderArtistSection()}
+                    </ScrollView>
+            </View>
         );
     }
 }

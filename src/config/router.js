@@ -15,6 +15,7 @@ import Artist from "../screens/artist";
 import Album from "../screens/album";
 import Song from "../screens/song";
 import SongDetail from "../screens/song_detail";
+import SongDetailUser from "../screens/song_detail_user";
 import PostAll from "../screens/post_all";
 import ArtistAll from "../screens/artist_all";
 import AlbumAll from "../screens/album_all";
@@ -48,20 +49,31 @@ const UnauthenticatedScreens = createStackNavigator(
 
 const AuthenticatedInitialScreens = createStackNavigator(
     { // Screens
-        Home: {
+        
+        Home: { screen: TabNavigator },
+        HomePage: {
             screen: Home
+        },
+        SongAll: { screen: SongAll }
+        ,
+        SongDetail: {
+            screen: SongDetail
+        },
+        Song: {
+            screen: Song
+        },
+        SongDetailUser: {
+            screen: SongDetailUser
         }
+        
+        
+        
     }, { // Default options
+         headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                  
-                header:
-                    <DrawerHeader // Default header component
-                        headerTitle={navigation.state.routeName}
-                        headerColor= {COLOR.HOME}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />,
+            
+                
                   
             };
         }
@@ -74,15 +86,10 @@ const ShowPost = createStackNavigator(
             screen: Post
         }
     }, { // Default options
+        headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.POST}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+                
             };
         }
     }
@@ -94,15 +101,16 @@ const ShowPostAll = createStackNavigator(
             screen: PostAll
         }
     }, { // Default options
+        headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.POST}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+                 // header:
+                 //    <DrawerHeader // Default header component
+                 //        headerColor= {COLOR.POST}
+                 //        headerTitle={navigation.state.routeName}
+                 //        icon="menu"
+                 //        onPress={() => navigation.openDrawer()}
+                 //    />
             };
         }
     }
@@ -114,15 +122,10 @@ const ShowArtistAll = createStackNavigator(
             screen: ArtistAll
         }
     }, { // Default options
+        headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.ARTIST}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+                
                     
             };
         }
@@ -135,16 +138,10 @@ const ShowArtist = createStackNavigator(
             screen: Artist
         }
     }, { // Default options
-        
+        headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.ARTIST}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+               
             };
         }
     }
@@ -156,7 +153,7 @@ const ShowAlbum = createStackNavigator(
             screen: Album
         }
     }, { // Default options
-        
+        headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
                 header:
@@ -177,16 +174,10 @@ const ShowAlbumAll = createStackNavigator(
             screen: AlbumAll
         }
     }, { // Default options
-        
+        headerMode: "none" ,
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.ALBUM}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+                
             };
         }
     }
@@ -196,18 +187,16 @@ const ShowSong = createStackNavigator(
     { // Screens
         Song: {
             screen: Song
+        },
+        SongDetailUser: {
+            screen: SongDetailUser
         }
     }, { // Default options
-        
+        headerMode: "none" ,
+        initialRouteName: 'Song',
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.SONG}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+                
             };
         }
     }
@@ -222,20 +211,19 @@ const ShowSongAll = createStackNavigator(
             screen: SongDetail
         }
     }, { // Default options
-        initialRouteName: 'SongAll',
+        headerMode: "none" ,
+        initialRouteName: 'Song',
         defaultNavigationOptions: ({ navigation }) => {
             return {
-                header:
-                    <DrawerHeader // Default header component
-                        headerColor= {COLOR.SONG}
-                        headerTitle={navigation.state.routeName}
-                        icon="menu"
-                        onPress={() => navigation.openDrawer()}
-                    />
+                
             };
         }
     }
 );
+
+
+
+
 
 
 const AppDrawerNavigator = createDrawerNavigator(
@@ -244,12 +232,11 @@ const AppDrawerNavigator = createDrawerNavigator(
         PostAll: ShowPostAll,
         ArtistAll: ShowArtistAll,
         AlbumAll: ShowAlbumAll,
-        SongAll: ShowSongAll,
         Post: ShowPost,
         Artist: ShowArtist,
         Album: ShowAlbum,
-        Song: ShowSong,
-        TabNavigator: { screen: TabNavigator },
+        
+      
     }, { // Default options
         initialRouteName: 'Home',
         contentComponent: DrawerComponent,// Default drawer component
@@ -268,6 +255,8 @@ const AppSwitchNavigator = createSwitchNavigator(
         UnauthenticatedScreens: { screen: UnauthenticatedScreens },
         AuthenticatedInitialScreens: { screen: AppDrawerNavigator },
         
+        
+        
 
     }, { // Default options
         initialRouteName: 'Splash'
@@ -277,8 +266,10 @@ const AppSwitchNavigator = createSwitchNavigator(
 
 
 const HomeStack = createStackNavigator({
-    AppDrawerNavigator,
-    TabNavigator,
+    Home: {
+        screen: Home
+    },
+    TabNavigator: { screen: TabNavigator },
   });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

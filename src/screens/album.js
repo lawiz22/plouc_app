@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StatusBar, ScrollView, Image} from "react-native";
 import { StyleSheet, imageHeight, imageWidth, FlatList } from "react-native";
 import { Card, ListItem, Button, Badge } from 'react-native-elements'
+import { DefaultTheme, Button as ButPaper, Appbar, Title, Headline, Avatar } from 'react-native-paper';
 
 
 
@@ -106,17 +107,20 @@ class Album extends Component {
     render() {
         return (
             <View style={[Styles.container, { padding: 0 }]}>
-                    <Text
-                        style={{
-                            color: COLOR.PANTOME,
-                            margin: 8,
-                            fontSize: 15,
-                            marginTop: 8
-                        }}
-                    >
-                        {`Albums de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
-                            "Guest"} !`}                             
-                    </Text>
+                    <Appbar.Header theme={{ colors: {
+                                ...DefaultTheme.colors,primary: COLOR.ALBUM } }}>
+                        <Appbar.BackAction
+                        
+                        onPress={() => this.props.navigation.navigate("Home")}
+                        />
+                        <Appbar.Content
+                        title={`Albums de ${this.props.state.authSession.data.first_name} ${this.props.state.authSession.data.last_name||
+                            "Guest"} !`}
+                        subtitle="Album it all ! Album it al!! Album it now!!"
+                        />
+                        <Appbar.Action icon="search" />
+                        <Appbar.Action icon="more-vert"  />
+                    </Appbar.Header>
                    
                     
                          <ScrollView contentContainerStyle={styles.container}>
