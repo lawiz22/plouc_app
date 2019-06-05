@@ -25,14 +25,8 @@ export default function list_user_song(state = initialState_A, action = {}) {
         isSongUserSuccess: true,
         usersongList: action.data.response.data,
         requestingUserSong: false,
-        usersongLimit: action.data.limit,
-        usersongOffset: action.data.offset,
       };
-      case types.RESET_USER_SONGS_REQUEST: // When a Login success action has been dispatched
-      return { // See more on actions/authenticate.js on line 19 - 38
-        ...state,
-        // requestingUserSong: true,
-      };
+      
       case types.RESET_USER_SONGS_SUCCESS: // When a Login success action has been dispatched
       return { // See more on actions/authenticate.js on line 19 - 38
         ...state,

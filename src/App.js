@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from "react-redux";
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { BottomNavigation, Text } from 'react-native-paper';
@@ -17,7 +18,16 @@ import TabNavigator from './config/tabstack';
 
 import { LOGOUT_SUCCESS } from "./config/action-types/authenticate";
 
-const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
+const composeEnhancers = composeWithDevTools({
+  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+
+const middleware = [
+  thunk,
+  logger
+];
+
+const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(...middleware))(createStore);
 const reducer = combineReducers(reducers);
 
 const rootReducer = (state, action) => {

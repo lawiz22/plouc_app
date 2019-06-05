@@ -26,8 +26,7 @@ export default function list_song(state = initialState_A, action = {}) {
         songList: action.data.response.data,
         songTotal: action.data.response.data.length,
         requestingSong: false,
-        songLimit: action.data.limit,
-        songOffset: action.data.offset,
+        
       };
       case types.RESET_SONGS_REQUEST: // When a Login success action has been dispatched
       return { // See more on actions/authenticate.js on line 19 - 38

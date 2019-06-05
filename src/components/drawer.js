@@ -4,7 +4,7 @@ import { DrawerItems, DrawerActions } from "react-navigation";
 import CustomButton from '../components/button'
 import CustomLoading from '../components/loading'
 import { DefaultTheme, Button as ButPaper, Badge } from 'react-native-paper';
-import TabNavigator from '../config/tabstack';
+
 
 
 import { bindActionCreators } from "redux";
